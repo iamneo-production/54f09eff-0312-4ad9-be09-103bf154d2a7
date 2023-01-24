@@ -25,17 +25,28 @@ public class UserController {
 	IBooking booking;
 	@Autowired
 	IMovies movies;
-	
+
 	@PostMapping("/login")
 	public String adminLogin(@RequestBody  User u) {
-		user.findById(u.getUid());
-		return "Logged In Successfully";
+		if(user.findByUName(u.getUname())!=null) {
+			if(user.findByUPassword(u.getUpassword())!=null) {
+		return "true";
+		}
+			else {
+				return "false";
+			}
+		}
+			else {
+				return "false";
+			}
 	}
-
+	
 	@PostMapping("/signup")
 	public String signu(@RequestBody User u){
-		user.save(u);
-		return "True";
+		if(user.save(u)!=null) {
+			return "true";
+		}
+		return "false";
 	}
 	
 	@GetMapping("/allMovie")
@@ -51,7 +62,7 @@ public class UserController {
 	@PostMapping("book")
 	public String book(@RequestBody Booking b){
 		booking.save(b);
-		return "true";
+		return "Movie Booked";
 	}
 	
 	@GetMapping("/allBooking")
@@ -62,6 +73,6 @@ public class UserController {
 	@DeleteMapping("/cancelBooking/{bid}")
 	public String cancelBooking(@PathVariable("bid") int bid) {
 		booking.deleteById(bid);
-		return "Booking Canceled";
+		return "Booking Cancelled";
 	}	
 }

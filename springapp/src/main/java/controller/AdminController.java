@@ -29,6 +29,11 @@ public class AdminController {
 	@Autowired
 	IBooking booking;
 	
+//	@GetMapping("/")
+//	public String welcome() {
+//		return "Welcome to Movie Application";
+//	}
+	
 	@GetMapping("/")
 	public List<Movies> viewMovies(){
 		return movies.findAll();
@@ -37,7 +42,7 @@ public class AdminController {
 	@PostMapping("/movie")
 	public String addMovie(@RequestBody Movies m){
 		movies.save(m);
-		return "Movie Added Successfully";
+		return "Movie added";
 	}
 
 	@PutMapping("/movie/{mid}")
@@ -52,7 +57,7 @@ public class AdminController {
 	@DeleteMapping("/movie/{mid}")
 	public String deleteMovie(@PathVariable("mid") int mid) {
 		movies.deleteById(mid);
-		return "Movie Deleted";
+		return "Movie deleted";
 	}
 	
 	@PostMapping("/allBooking")
